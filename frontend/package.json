@@ -1,0 +1,20 @@
+{
+  "name": "lego-cv-frontend",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "13.4.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-webcam": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.0",
+    "@types/react": "19.2.17",
+    "typescript": "6.0.3"
+  }
+}

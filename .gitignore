@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Next.js / frontend build outputs
+frontend/.next/
+out/
+
+# Python tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS/editor noise
+.DS_Store
+.vscode/
+
+# Logs
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+.next/
+frontend/node_modules/
+node_modules/
+.next/
+frontend/node_modules/
+frontend/.next/
