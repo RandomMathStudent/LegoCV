@@ -6,3 +6,5 @@ numpy
 faiss-cpu
 scikit-image
 python-multipart
+insightface
+onnxruntime

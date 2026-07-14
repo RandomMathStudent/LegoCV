@@ -1,5 +1,9 @@
 from fastapi import FastAPI
-from routers import analyze
+
+try:
+    from .routers import analyze
+except ImportError:  # pragma: no cover
+    from routers import analyze
 
 app = FastAPI(title="LegoCV Backend")
 
