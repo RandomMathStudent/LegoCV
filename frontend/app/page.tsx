@@ -2,6 +2,7 @@
 
 import { useCallback, useRef, useState } from 'react'
 import Webcam from '@/components/Webcam'
+import DetectionResults from '@/components/DetectionResults'
 import { analyzeImage } from '@/lib/api'
 
 export default function Page() {
@@ -37,38 +38,37 @@ export default function Page() {
   }, [])
 
   return (
-    <main style={{ minHeight: '100vh', padding: '2rem', fontFamily: 'Arial, sans-serif', background: '#f7f7f7' }}>
-      <div style={{ maxWidth: 900, margin: '0 auto', background: 'white', borderRadius: 20, padding: 24, boxShadow: '0 8px 30px rgba(0,0,0,0.08)' }}>
-        <h1 style={{ marginBottom: 8 }}>LEGO Lookalike Studio</h1>
-        <p style={{ marginTop: 0, color: '#666' }}>Allow camera access, capture a photo, and send it to the backend for analysis.</p>
+    <main className="studio-page">
+      <div className="studio-shell">
+        <header className="studio-heading">
+          <p className="eyebrow">LEGO® lookalike lab</p>
+          <h1>Build your minifigure match</h1>
+          <p>Capture a photo to identify visible features and find compatible LEGO parts.</p>
+        </header>
 
-        <div style={{ display: 'grid', gap: 20, gridTemplateColumns: '1.2fr 0.8fr' }}>
-          <div style={{ border: '1px solid #e3e3e3', borderRadius: 16, overflow: 'hidden', background: '#fff' }}>
+        <div className="capture-grid">
+          <div className="webcam-frame">
             <Webcam webcamRef={webcamRef} />
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <aside className="capture-controls">
             <button
               onClick={capture}
               disabled={isCapturing}
-              style={{ padding: '0.9rem 1.2rem', border: 'none', borderRadius: 999, background: '#ffcf00', color: '#111', fontWeight: 700, cursor: isCapturing ? 'wait' : 'pointer' }}
+              className="capture-button"
             >
               {isCapturing ? 'Analyzing...' : 'Capture & Analyze'}
             </button>
 
-            <div style={{ padding: 16, background: '#fafafa', borderRadius: 12, border: '1px solid #eee' }}>
+            <div className="status-card">
               <strong>Status</strong>
-              <p style={{ marginBottom: 0 }}>{status}</p>
+              <p>{status}</p>
             </div>
-
-            {result && (
-              <div style={{ padding: 16, background: '#f2fbf4', borderRadius: 12, border: '1px solid #d7f0dc' }}>
-                <strong>Analysis result</strong>
-                <pre style={{ marginTop: 8, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{JSON.stringify(result, null, 2)}</pre>
-              </div>
-            )}
-          </div>
+            <p className="capture-note">For the clearest match, face the camera in even lighting and keep hair visible.</p>
+          </aside>
         </div>
+
+        {result && <DetectionResults result={result} />}
       </div>
     </main>
   )

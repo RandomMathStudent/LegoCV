@@ -1,8 +1,7 @@
 # Dependencies
 node_modules/
 frontend/node_modules/
-backend/.venv/
-venv/
+/.venv/
 __pycache__/
 *.py[cod]
 
@@ -34,3 +33,16 @@ node_modules/
 .next/
 frontend/node_modules/
 frontend/.next/
+
+
+# Generated/downloaded data assets
+/data/**/*.dat
+/data/**/*.txt
+/data/**/*.png
+/data/**/*.jpg
+/data/**/*.jpeg
+/data/**/*.gif
+/data/**/*.webp
+
+# CSV data files
+/data/**/*.csv

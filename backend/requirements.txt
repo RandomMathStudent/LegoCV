@@ -1,8 +1,11 @@
 fastapi
 uvicorn[standard]
 pillow
-opencv-python-headless
 numpy
+requests
+beautifulsoup4
+pandas
+tqdm
 faiss-cpu
 scikit-image
 python-multipart
