@@ -12,17 +12,34 @@ Setup:
 Endpoints:
 - `POST /analyze` accepts `multipart/form-data` with `image` file and returns matches + avatar stub.
 
-## Hosted VLM extraction (optional)
+## Local development
 
-The backend returns schema-stable `unknown` semantic attributes by default. To
-enable image-based semantic extraction through an OpenAI-compatible vision API,
-set these environment variables before starting the server:
+The default `VLM_MODE=mock` returns deterministic, schema-valid semantic
+attributes. It does not load Qwen, PyTorch, CUDA, or any GPU package, so the
+complete FastAPI analysis flow works on a CPU-only laptop.
 
-- `VLM_API_KEY` (required)
-- `VLM_API_URL` (optional; defaults to OpenAI chat completions)
-- `VLM_MODEL` (optional; defaults to `gpt-4.1-mini`)
-- `VLM_TIMEOUT_SECONDS` (optional; defaults to `20`)
+This **direct mock** is the fastest option for unit tests: FastAPI calls its
+in-process deterministic implementation and makes no network request.
 
-Put local values in `backend/.env`; it is ignored by Git. Start the backend with
-`--env-file .env` so those values are loaded. The key is sent only to the
-configured `VLM_API_URL`; do not commit it to the repository.
+Copy `.env.example` to `.env` if configuration is needed. The local default is:
+
+`VLM_MODE=mock`
+
+## Remote GPU VLM inference
+
+For production, run the separate service in [vlm_server](../vlm_server/) on one
+GPU with one Qwen model process. Configure this backend, not the browser:
+
+`VLM_MODE=remote`
+
+`VLM_URL=http://<GPU-SERVER>:9000/analyze`
+
+`VLM_TIMEOUT_SECONDS=60`
+
+The request path remains **Next.js → FastAPI → VLM server → Qwen**. If the
+remote server fails, `/analyze` returns an error rather than a mock result.
+
+For CPU-only end-to-end testing, start [mock_vlm_server](../mock_vlm_server/)
+on port 9000 and set `VLM_MODE=remote`. This **HTTP mock** follows the same
+multipart `/analyze` contract as the GPU service, so FastAPI sends the uploaded
+image over HTTP exactly as it will in production.

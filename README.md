@@ -15,3 +15,27 @@ Project goal: capture a user photo, find the closest LEGO minifigure match, and 
 - [backend/](backend/) — FastAPI backend and analysis pipeline scaffold
 
 See [frontend/README.md](frontend/README.md) and [backend/README.md](backend/README.md) for quick start instructions.
+
+## Local Development
+
+Activate the project environment with `source .venv/bin/activate`. Start the
+CPU-only FastAPI backend from [backend](backend/) with `uvicorn main:app --reload`,
+then start the frontend from [frontend](frontend/) with `npm run dev`.
+
+The backend defaults to `VLM_MODE=mock`, so local analysis requires no GPU,
+Qwen, PyTorch, or CUDA. Future production deployments use the private path:
+
+`Next.js → FastAPI → VLM server → Qwen`
+
+Set `VLM_MODE=remote` and `VLM_URL=http://<GPU-SERVER>:9000/analyze` in the
+backend environment to use the separate GPU service.
+
+## HTTP Mock VLM
+
+To test the production network boundary on a CPU-only machine, start the
+standalone mock service from the repository root with
+`uvicorn mock_vlm_server.main:app --host 0.0.0.0 --port 9000 --reload`.
+Then start the backend with `VLM_MODE=remote` and
+`VLM_URL=http://localhost:9000/analyze`. See
+[mock_vlm_server/README.md](mock_vlm_server/README.md) for its test latency and
+failure controls.

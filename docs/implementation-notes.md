@@ -26,6 +26,14 @@ The canonical stage-by-stage architecture reference is in [architecture-spec.md]
 - Make each pipeline stage replaceable so CLIP, InsightFace, FAISS, or asset composition can be swapped later.
 - Document each architecture choice in this file as the project evolves.
 
+## LDraw Asset Previews
+- `HeadRenderer.render_head_with_hair()` composes a selected standard minifigure
+	head and hair part at the shared LDraw origin, then rasterizes their combined
+	triangles into a canonical PNG.
+- `render/generate_minifigure_preview.py` exposes this as a command-line preview
+	generator. It defaults to yellow heads and reddish-brown hair; callers can
+	select valid LDraw colour codes for either part.
+
 ## Maintenance Guidance
 - Update this file whenever a new major component or workflow is added.
 - Keep the design and todo files in sync with implementation progress.

@@ -3,9 +3,9 @@ from __future__ import annotations
 from typing import Any, Dict
 
 try:
-    from ..models import vlm
+    from ..clients.vlm import analyze_image
 except ImportError:  # pragma: no cover
-    from models import vlm
+    from clients.vlm import analyze_image
 
 
 def extract_semantics(aligned_face: Any) -> Dict[str, Any]:
@@ -14,4 +14,4 @@ def extract_semantics(aligned_face: Any) -> Dict[str, Any]:
         image_bytes = aligned_face.get("raw_bytes", b"")
     else:
         image_bytes = b""
-    return vlm.extract_semantics_from_image(image_bytes)
+    return analyze_image(image_bytes)
